@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Informe del Estudiante</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Reset de márgenes y padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #e1f5fe, #ffffff); /* Fondo con gradiente suave */
+            color: #1d1f21;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centrar contenido */
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .navbar {
+            background-color: rgba(38, 31, 89, 0.9);
+            padding: 10px 20px;
+            width: 100%;
+            text-align: center; /* Centrar el texto */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra en la navbar */
+            border-radius: 0 0 10px 10px; /* Esquinas redondeadas en la parte inferior */
+            margin-bottom: 20px; /* Espacio entre navbar y contenido */
+        }
+
+        .navbar h1 {
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra en el texto del título */
+            font-size: 24px;
+            margin: 0; /* Quitar margen para alinear el texto */
+        }
+
+        .header {
+            background-color: rgba(38, 31, 89, 0.8);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            margin-bottom: 20px; /* Espacio entre header y contenido */
+            border-radius: 10px; /* Esquinas redondeadas */
+        }
+
+        .aprobado {
+            color: green;
+            font-weight: bold; /* Resaltar texto */
+        }
+
+        .reprobado {
+            color: red;
+            font-weight: bold; /* Resaltar texto */
+        }
+
+        .container {
+            max-width: 800px; /* Cambiado a 800px para mejor responsividad */
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Efecto hover en el contenedor principal */
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            animation: pulso 2s infinite;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .info p,
+        .scores p {
+            font-size: 18px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0; /* Línea debajo de cada párrafo */
+            padding-bottom: 5px; /* Espacio interno */
+        }
+
+        strong {
+            color: #333;
+        }
+
+        /* Colores para los niveles */
+        .nivel-1 {
+            color: #f44336;
+        }
+
+        .nivel-2 {
+            color: #ff9800;
+        }
+
+        .nivel-3 {
+            color: #ffeb3b;
+        }
+
+        .nivel-4 {
+            color: #4CAF50;
+        }
+
+        .text-success {
+            color: green;
+        }
+
+        .text-danger {
+            color: red;
+        }
+
+        /* Animación de brillo en header */
+        @keyframes pulso {
+            0% {
+                text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            }
+
+            50% {
+                text-shadow: 0 0 20px rgba(76, 175, 80, 1);
+            }
+
+            100% {
+                text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            }
+        }
+
+        /* Responsividad: ajustes para diferentes pantallas */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .info p,
+            .scores p {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .info p,
+            .scores p {
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+        }
+
+        /* Botón Volver */
+        .btn-volver {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-volver:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <h1>PRUEBAS SABER PRO</h1>
+    </nav>
+
+    <div class="container">
+        <h1>Informe del Estudiante</h1>
+
+        <div class="info">
+            <p><strong>Nombre:</strong> <span th:text="${nombre}"></span></p>
+            <p><strong>Apellido:</strong> <span th:text="${apellido}"></span></p>
+        </div>
+
+        <h2>Puntajes y Niveles</h2>
+
+        <div class="scores">
+            <p><strong>Comunicación Escrita:</strong>
+                <span th:text="${comunicacion == -1 ? 'Anulado' : comunicacion}"></span>
+                <span th:class="${comunicacionLevel == 'Nivel 1' ? 'nivel-1' : (comunicacionLevel == 'Nivel 2' ? 'nivel-2' : (comunicacionLevel == 'Nivel 3' ? 'nivel-3' : 'nivel-4'))}">
+                    <span th:text="${comunicacionLevel}"></span>
+                </span>
+            </p>
+
+            <p><strong>Razonamiento Cuantitativo:</strong>
+                <span th:text="${razonamiento == -1 ? 'Anulado' : razonamiento}"></span>
+                <span th:class="${razonamientoLevel == 'Nivel 1' ? 'nivel-1' : (razonamientoLevel == 'Nivel 2' ? 'nivel-2' : (razonamientoLevel == 'Nivel 3' ? 'nivel-3' : 'nivel-4'))}">
+                    <span th:text="${razonamientoLevel}"></span>
+                </span>
+            </p>
+
+            <p><strong>Lectura Crítica:</strong>
+                <span th:text="${lectura == -1 ? 'Anulado' : lectura}"></span>
+                <span th:class="${lecturaLevel == 'Nivel 1' ? 'nivel-1' : (lecturaLevel == 'Nivel 2' ? 'nivel-2' : (lecturaLevel == 'Nivel 3' ? 'nivel-3' : 'nivel-4'))}">
+                    <span th:text="${lecturaLevel}"></span>
+                </span>
+            </p>
+
+            <p><strong>Competencias Ciudadanas:</strong>
+                <span th:text="${competencias == -1 ? 'Anulado' : competencias}"></span>
+                <span th:class="${competenciasLevel == 'Nivel 1' ? 'nivel-1' : (competenciasLevel == 'Nivel 2' ? 'nivel-2' : (competenciasLevel == 'Nivel 3' ? 'nivel-3' : 'nivel-4'))}">
+                    <span th:text="${competenciasLevel}"></span>
+                </span>
+            </p>
+
+            <p><strong>Inglés:</strong>
+                <span th:text="${ingles == -1 ? 'Anulado' : ingles}"></span>
+                <span th:class="${inglesLevel == 'Nivel 1' ? 'nivel-1' : (inglesLevel == 'Nivel 2' ? 'nivel-2' : (inglesLevel == 'Nivel 3' ? 'nivel-3' : 'nivel-4'))}">
+                    <span th:text="${inglesLevel}"></span>
+                </span>
+            </p>
+
+            <p><strong>Resultados Generales:</strong>
+                <span th:if="${resultadoGeneral == 'Aprobado'}" class="aprobado">Aprobado</span>
+                <span th:if="${resultadoGeneral == 'Reprobado'}" class="reprobado">Reprobado</span>
+            </p>
+        </div>
+
+        <button class="btn-volver" onclick="history.back()">Volver</button>
+    </div>
+
+</body>
+
+</html>
+

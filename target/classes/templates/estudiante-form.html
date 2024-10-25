@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Formulario Estudiante</title>
+	<!-- Enlaces a los archivos CSS de Bootstrap -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<style>
+		body {
+		    font-family: Arial, sans-serif;
+		    background-color: #f8f9fa;
+		    color: #343a40;
+		    display: flex;
+		    flex-direction: column;
+		    min-height: 100vh;
+		    margin: 0;
+		    padding-top: 20px;
+		}
+
+		.navbar {
+		    padding: 8px 16px;
+		    background-color: #fff;
+		    border-bottom: 4px solid #e5e5e5;
+		}
+
+		h1, h2 {
+		    text-align: center;
+		    color: #007bff;
+		    margin-bottom: 20px;
+		}
+
+		.container {
+		    background-color: #fff;
+		    border-radius: 8px;
+		    padding: 30px;
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		    max-width: 800px;
+		    margin: auto;
+			border-top: 2px;
+		}
+
+		label {
+		    font-weight: 500;
+		    margin-bottom: 5px;
+		}
+
+		.form-control {
+		    border-radius: 4px;
+		    padding: 10px;
+		}
+
+		.input-with-level {
+		    display: flex;
+		    align-items: center;
+		    gap: 10px;
+		}
+
+		button[type="submit"] {
+		    background-color: #007bff;
+		    border: none;
+		    padding: 10px 20px;
+		    border-radius: 4px;
+		    color: white;
+		    font-weight: bold;
+		    margin-top: 20px;
+		    display: block;
+		    width: 100%;
+		}
+
+		button[type="submit"]:hover {
+		    background-color: #0056b3;
+		    cursor: pointer;
+		}
+
+	</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" th:href="@{/coordinador/index}">
+		</a>
+		<div class="navbar-title">
+			<!-- Título -->
+			<h1>Formulario Estudiante</h1>
+		</div>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<!-- Botón de Logout -->
+					<a class="btn btn-outline-danger my-2 my-sm-0" type="submit" th:href="@{/}">Logout</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="	back container ">
+		<h2 class="mt-4 mb-4">Formulario de Registro</h2>
+		<div>
+			<form id="registrationForm" th:action="@{/coordinador/estudiante/save}" th:object="${estudiante}"
+				method="post">
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="id">ID:</label>
+						<input th:field="*{id}" type="text" class="form-control" id="id" name="id" required>
+					</div>
+					<div class="col-md-4 mb-3">
+						<label for="document">Usuario:</label>
+						<input th:field="*{usuario}" type="text" class="form-control" id="document" name="document"
+							required>
+					</div>
+					<!-- Ejemplo de un campo ajustado -->
+					<div class="col-md-4 mb-3">
+						<label for="password">Contraseña:</label>
+						<input th:field="*{contrasena}" type="password" class="form-control" id="password"
+							name="contrasena" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="documentType">Tipo de Documento:</label>
+						<select th:field="*{tipoDocumento}" class="form-control" id="documentType" name="documentType"
+							required>
+							<option value="CC">CC</option>
+							<option value="TI">TI</option>
+						</select>
+					</div>
+					<div class="col-md-4 mb-3">
+						<label for="document">Documento:</label>
+						<input th:field="*{numeroDocumento}" type="text" class="form-control" id="document"
+							name="document" required>
+					</div>
+					<div class="col-md-4 mb-3">
+						<label for="names">Primer Nombre:</label>
+						<input th:field="*{primerNombre}" type="text" class="form-control" id="name" name="primerNombre"
+							required>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="secondName">Segundo Nombre:</label>
+						<input th:field="*{segundoNombre}" type="text" class="form-control" id="secondName"
+							name="segundoNombre" required>
+					</div>
+					<div class="col-md-4 mb-3">
+						<label for="names">Primer Apellido:</label>
+						<input th:field="*{primerApellido}" type="text" class="form-control" id="lastNamesS"
+							name="primerApellido" required>
+					</div>
+					<div class="col-md-4 mb-3">
+						<label for="lastNames">Segundo Apellido:</label>
+						<input th:field="*{segundoApellido}" type="text" class="form-control" id="lastNames"
+							name="lastNames" required>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="email">Correo Electronico:</label>
+						<input th:field="*{correoElectronico}" type="text" class="form-control" id="email" name="email"
+							required>
+					</div>
+					<div class="col-md-4 mb-3">
+						<label for="phone">Número Telefónico:</label>
+						<input th:field="*{numeroTelefonico}" type="text" class="form-control" id="phone" name="phone"
+							required>
+					</div>
+					<div class="col-md-4 mb-3">
+						<label for="registrationNumber">Número de Registro:</label>
+						<input th:field="*{numeroRegistro}" type="text" class="form-control" id="registrationNumber"
+							name="registrationNumber" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="total">Putaje :</label>
+						<input th:field="*{puntaje}" type="number" class="form-control" id="total" name="total" min="-1"
+							max="500" required>
+					</div>
+					<div class="col-md-6 mb-3">
+						<label for="totalLevel">Saber Pro Nivel:</label>
+						<input th:field="*{nivelSaberPro}" type="text" class="form-control input-with-level"
+							id="totalLevel" readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="communication">Comunicación Escrita:</label>
+						<input th:field="*{comunicacionEscrita}" type="number" class="form-control" id="communication"
+							name="communication" min="-1" max="500" required>
+					</div>
+					<div class="col-md-6 mb-3">
+						<label for="communicationLevel">Comunicación Escrita Nivel:</label>
+						<input th:field="*{nivelComunicacionEscrita}" type="text" class="form-control input-with-level"
+							id="communicationLevel" readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="Razonamiento">Razonamiento Cuantitativo:</label>
+						<input th:field="*{razonamientoCuantitativo}" type="number" class="form-control"
+							id="Razonamiento" name="Razonamiento" min="-1" max="500" required>
+					</div>
+					<div class="col-md-6 mb-3">
+						<label for="RazonamientoLevel">Razonamiento Cuantitativo Nivel:</label>
+						<input th:field="*{nivelRazonamientoCuantitativo}" type="text"
+							class="form-control input-with-level" id="RazonamientoLevel" readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="Lectura">Lectura Critica:</label>
+						<input th:field="*{lecturaCritica}" type="number" class="form-control" id="Lectura"
+							name="Lectura" min="-1" max="500" required>
+					</div>
+					<div class="col-md-6 mb-3">
+						<label for="LecturaLevel">Lectura Critica Nivel:</label>
+						<input th:field="*{nivelLecturaCritica}" type="text" class="form-control input-with-level"
+							id="LecturaLevel" readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="Competencias">Competencias Ciudadanas:</label>
+						<input th:field="*{competenciasCiudadanas}" type="number" class="form-control" id="Competencias"
+							name="Competencias" min="-1" max="500" required>
+					</div>
+					<div class="col-md-6 mb-3">
+						<label for="CompetenciasLevel">Competencias Ciudadanas Nivel:</label>
+						<input th:field="*{nivelCompetenciasCiudadanas}" type="text"
+							class="form-control input-with-level" id="CompetenciasLevel" readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="Ingles">Ingles:</label>
+						<input th:field="*{ingles}" type="number" class="form-control" id="Ingles" name="Ingles"
+							min="-1" max="300" required>
+					</div>
+					<div class="col-md-4 mb-3">
+						<label for="InglesLevel">Ingles Nivel:</label>
+						<input th:field="*{nivelIngles}" type="text" class="form-control input-with-level"
+							id="InglesLevel" readonly>
+					</div>
+					<div class="col-md-4 mb-3">
+						<label for="InglesLevel2">Nivel de Ingles:</label>
+						<input th:field="*{nivelDeIngles}" type="text" class="form-control input-with-level"
+							id="InglesLevel2" readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="Formulación">Formulación de Proyectos de Ingenieria:</label>
+						<input th:field="*{formulacionProyectosIngenieria}" type="number" class="form-control"
+							id="Formulación" name="Formulación" min="-1" max="500" required>
+					</div>
+					<div class="col-md-6 mb-3">
+						<label for="FormulaciónLevel">Formulación de Proyectos de Ingenieria Nivel:</label>
+						<input th:field="*{nivelFormulacionProyectosIngenieria}" type="text"
+							class="form-control input-with-level" id="FormulaciónLevel" readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="Pensamiento">Pensamiento Científico- Matemáticas y Estadística</label>
+						<input th:field="*{pensamientoCientifico}" type="number" class="form-control" id="Pensamiento"
+							name="Pensamiento" min="-1" max="500" required>
+					</div>
+					<div class="col-md-6 mb-3">
+						<label for="PensamientoLevel">Pensamiento Científico- Matemáticas y Estadística Nivel:</label>
+						<input th:field="*{nivelPensamientoCientifico}" type="text"
+							class="form-control input-with-level" id="PensamientoLevel" readonly>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 mb-3">
+						<label for="Diseño">Diseño de Software:</label>
+						<input th:field="*{diseñoSoftware}" type="number" class="form-control" id="Diseño" name="Diseño"
+							min="-1" max="500" required>
+					</div>
+					<div class="col-md-6 mb-3">
+						<label for="DiseñoLevel">Diseño de Software Nivel:</label>
+						<input th:field="*{nivelDiseñoSoftware}" type="text" class="form-control input-with-level"
+							id="DiseñoLevel" readonly>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">Enviar</button>
+			</form>
+			<br>
+		</div>
+
+	</div>
+
+	<!-- jQuery, Popper.js, Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script>
+		document.getElementById('communication').addEventListener('input', function () {
+			var communicationLevel = document.getElementById('communicationLevel');
+			var communicationScore = parseInt(this.value);
+			if (communicationScore >= 0 && communicationScore <= 125) {
+				communicationLevel.value = "Nivel 1";
+			} else if (communicationScore >= 126 && communicationScore <= 155) {
+				communicationLevel.value = "Nivel 2";
+			} else if (communicationScore >= 156 && communicationScore <= 190) {
+				communicationLevel.value = "Nivel 3";
+			} else if (communicationScore >= 191 && communicationScore <= 300) {
+				communicationLevel.value = "Nivel 4";
+			}
+		});
+	</script>
+
+	<script>
+		document.getElementById('total').addEventListener('input', function () {
+			var communicationScoreInput = document.getElementById('communication'); // Campo de input de communicationScore
+			var communicationLevel = document.getElementById('communicationLevel'); // Campo de nivel de communication
+			var RazonamientoScoreInput = document.getElementById('Razonamiento');
+			var RazonamientoLevel = document.getElementById('RazonamientoLevel');
+			var LecturaScoreInput = document.getElementById('Lectura');
+			var LecturaLevel = document.getElementById('LecturaLevel');
+			var InglesScoreInput = document.getElementById('Ingles'); 
+			var InglesLevel = document.getElementById('InglesLevel'); 
+			var InglesLevel2 = document.getElementById('InglesLevel2'); 
+			var CompetenciasLevel = document.getElementById('CompetenciasLevel'); 
+			var CompetenciasScoreInput = document.getElementById('Competencias'); 
+			var FormulaciónLevel = document.getElementById('FormulaciónLevel'); 
+			var FormulaciónScoreInput = document.getElementById('Formulación'); 
+			var PensamientoLevel = document.getElementById('PensamientoLevel'); 
+			var PensamientoScoreInput = document.getElementById('Pensamiento'); 
+			var DiseñoScoreInput = document.getElementById('Diseño'); 
+			var DiseñoLevel = document.getElementById('DiseñoLevel'); 
+			var totalScore = parseInt(this.value);
+
+			if (totalScore == -1) {
+				communicationScoreInput.value = -1; // Cambia el valor de communicationScore a -1
+				communicationLevel.value = "Anulado"; // Cambia el nivel de communication a "Anulado"
+				RazonamientoScoreInput.value = -1;
+				RazonamientoLevel.value = "Anulado";
+				LecturaScoreInput.value = -1;
+				LecturaLevel.value = "Anulado"; 
+				InglesScoreInput.value = -1;
+				InglesLevel.value = "Anulado"; 
+				InglesLevel2.value = "Anulado"; 
+				CompetenciasScoreInput.value = -1;
+				CompetenciasLevel.value = "Anulado"; 
+				FormulaciónScoreInput.value = -1;
+				FormulaciónLevel.value = "Anulado"; 
+				PensamientoScoreInput.value = -1;
+				PensamientoLevel.value = "Anulado"; 
+				DiseñoScoreInput.value = -1;
+				DiseñoLevel.value = "Anulado"; 
+			}
+		});
+	</script>
+
+	<script>
+		document.getElementById('total').addEventListener('input', function () {
+			var totalLevel = document.getElementById('totalLevel');
+			var totalScore = parseInt(this.value);
+			if (totalScore >= 0 && totalScore <= 125) {
+				totalLevel.value = "Nivel 1";
+			} else if (totalScore >= 126 && totalScore <= 155) {
+				totalLevel.value = "Nivel 2";
+			} else if (totalScore >= 156 && totalScore <= 190) {
+				totalLevel.value = "Nivel 3";
+			} else if (totalScore >= 191 && totalScore <= 300) {
+				totalLevel.value = "Nivel 4";
+			} else if (totalScore == -1) {
+				totalLevel.value = "Anulado";
+			}
+		});
+	</script>
+
+	<script>
+		document.getElementById('Razonamiento').addEventListener('input', function () {
+			var RazonamientoLevel = document.getElementById('RazonamientoLevel');
+			var RazonamientoScore = parseInt(this.value);
+			if (RazonamientoScore >= 0 && RazonamientoScore <= 125) {
+				RazonamientoLevel.value = "Nivel 1";
+			} else if (RazonamientoScore <= 155) {
+				RazonamientoLevel.value = "Nivel 2";
+			} else if (RazonamientoScore <= 190) {
+				RazonamientoLevel.value = "Nivel 3";
+			} else if (RazonamientoScore <= 300) {
+				RazonamientoLevel.value = "Nivel 4";
+			}
+		});
+	</script>
+
+	<script>
+		document.getElementById('Lectura').addEventListener('input', function () {
+			var LecturaLevel = document.getElementById('LecturaLevel');
+			var LecturaScore = parseInt(this.value);
+			if (LecturaScore >= 0 && LecturaScore <= 125) {
+				LecturaLevel.value = "Nivel 1";
+			} else if (LecturaScore <= 155) {
+				LecturaLevel.value = "Nivel 2";
+			} else if (LecturaScore <= 190) {
+				LecturaLevel.value = "Nivel 3";
+			} else if (LecturaScore <= 300) {
+				LecturaLevel.value = "Nivel 4";
+			}
+		});
+	</script>
+
+	<script>
+		document.getElementById('Ingles').addEventListener('input', function () {
+			var InglesLevel = document.getElementById('InglesLevel');
+			var InglesScore = parseInt(this.value);
+			if (InglesScore >= 0 && InglesScore <= 125) {
+				InglesLevel.value = "Nivel 1";
+			} else if (InglesScore <= 155) {
+				InglesLevel.value = "Nivel 2";
+			} else if (InglesScore <= 190) {
+				InglesLevel.value = "Nivel 3";
+			} else if (InglesScore <= 300) {
+				InglesLevel.value = "Nivel 4";
+			}
+		});
+	</script>
+
+	<script>
+		document.getElementById('Competencias').addEventListener('input', function () {
+			var CompetenciasLevel = document.getElementById('CompetenciasLevel');
+			var CompetenciasScore = parseInt(this.value);
+			if (CompetenciasScore >= 0 && CompetenciasScore <= 125) {
+				CompetenciasLevel.value = "Nivel 1";
+			} else if (CompetenciasScore <= 155) {
+				CompetenciasLevel.value = "Nivel 2";
+			} else if (CompetenciasScore <= 190) {
+				CompetenciasLevel.value = "Nivel 3";
+			} else if (CompetenciasScore <= 300) {
+				CompetenciasLevel.value = "Nivel 4";
+			}
+		});
+	</script>
+
+	<script>
+		document.getElementById('Formulación').addEventListener('input', function () {
+			var FormulaciónLevel = document.getElementById('FormulaciónLevel');
+			var FormulaciónScore = parseInt(this.value);
+			if (FormulaciónScore >= 0 && FormulaciónScore <= 125) {
+				FormulaciónLevel.value = "Nivel 1";
+			} else if (FormulaciónScore <= 155) {
+				FormulaciónLevel.value = "Nivel 2";
+			} else if (FormulaciónScore <= 190) {
+				FormulaciónLevel.value = "Nivel 3";
+			} else if (FormulaciónScore <= 300) {
+				FormulaciónLevel.value = "Nivel 4";
+			}
+		});
+	</script>
+
+	<script>
+		document.getElementById('Pensamiento').addEventListener('input', function () {
+			var PensamientoLevel = document.getElementById('PensamientoLevel');
+			var PensamientoScore = parseInt(this.value);
+			if (PensamientoScore >= 0 && PensamientoScore <= 125) {
+				PensamientoLevel.value = "Nivel 1";
+			} else if (PensamientoScore <= 155) {
+				PensamientoLevel.value = "Nivel 2";
+			} else if (PensamientoScore <= 190) {
+				PensamientoLevel.value = "Nivel 3";
+			} else if (PensamientoScore <= 300) {
+				PensamientoLevel.value = "Nivel 4";
+			}
+		});
+	</script>
+
+	<script>
+		document.getElementById('Diseño').addEventListener('input', function () {
+			var DiseñoLevel = document.getElementById('DiseñoLevel');
+			var DiseñoScore = parseInt(this.value);
+			if (DiseñoScore >= 0 && DiseñoScore <= 125) {
+				DiseñoLevel.value = "Nivel 1";
+			} else if (DiseñoScore <= 155) {
+				DiseñoLevel.value = "Nivel 2";
+			} else if (DiseñoScore <= 190) {
+				DiseñoLevel.value = "Nivel 3";
+			} else if (DiseñoScore <= 300) {
+				DiseñoLevel.value = "Nivel 4";
+			}
+		});
+	</script>
+	<script>
+		document.getElementById('Ingles').addEventListener('input', function () {
+			var InglesLevel2 = document.getElementById('InglesLevel2');
+			var InglesScore = parseInt(this.value);
+			if (InglesScore >= 0 && InglesScore <= 120) {
+				InglesLevel2.value = "A0";
+			} else if (InglesScore <= 130) {
+				InglesLevel2.value = "A1";
+			} else if (InglesScore <= 180) {
+				InglesLevel2.value = "A2";
+			} else if (InglesScore <= 200) {
+				InglesLevel2.value = "B1";
+			} else if (InglesScore <= 300) {
+				InglesLevel2.value = "B2";
+			}
+		});
+	</script>
+
+
+
+</body>
+
+</html>
