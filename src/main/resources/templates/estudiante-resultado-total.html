@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado Total</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradiente de fondo */
+            color: #1d1f21;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Estilo para la barra de navegación */
+        .navbar {
+            background-color: #343a40; /* Color más oscuro para la navbar */
+        }
+
+        .navbar-title h1 {
+            font-size: 1.5rem;
+            color: #ffffff; /* Texto blanco */
+            font-weight: bold;
+        }
+
+        /* Estilo para la parte superior del cuadro */
+        .top {
+            background-color: #007bff; /* Color azul Bootstrap */
+            padding: 20px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .top:hover {
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.7); /* Efecto de hover */
+        }
+
+        /* Estilo para la parte inferior del cuadro */
+        .bottom {
+            background-color: #f8f9fa; /* Color claro */
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .bottom:hover {
+            box-shadow: 0 0 20px rgba(231, 240, 255, 0.7);
+        }
+
+        /* Estilo para la partición en la parte inferior */
+        .divider {
+            width: 2px;
+            height: 50px;
+            background-color: #ddd;
+        }
+
+        /* Estilo para el texto de nivel y puntaje */
+        .info {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 150px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        /* Estilo para el texto del nivel */
+        .level {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Colores de fondo para los diferentes niveles */
+        .color-anulado {
+            background-color: #95a5a6;
+            color: #141515;
+        }
+
+        .nivel-color-1 {
+            background-color: #e74c3c;
+            color: #ffffff; /* Texto blanco */
+        }
+
+        .nivel-color-2 {
+            background-color: #3498db;
+            color: #ffffff; /* Texto blanco */
+        }
+
+        .nivel-color-3 {
+            background-color: #f1c40f;
+            color: #141515;
+        }
+
+        .nivel-color-4 {
+            background-color: #2ecc71;
+            color: #141515;
+        }
+
+        /* Estilo para la aprobación o reprobación */
+        .approval {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #2c3e50;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        /* Centrar el contenido principal */
+        .centered-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .result-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .result-card:hover {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Botón Volver */
+        .btn-volver {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff; /* Color azul Bootstrap */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-volver:hover {
+            background-color: #0056b3; /* Color azul oscuro */
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #343a40; /* Color más oscuro */
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsividad */
+        @media (max-width: 576px) {
+            .bottom {
+                flex-direction: column;
+            }
+
+            .divider {
+                width: 50px;
+                height: 2px;
+                margin: 10px 0;
+            }
+
+            .info {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="navbar-title">
+            <h1>RESULTADO TOTAL</h1>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="btn btn-outline-danger my-2 my-sm-0" th:href="@{/}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid flex-grow-1">
+        <div class="centered-container">
+            <div class="result-card">
+                <div class="top">
+                    <h2>TOTAL</h2>
+                </div>
+                <div class="bottom">
+                    <div class="info nivel-color-1">
+                        <h3 th:text="${totalLevel}" class="level"></h3>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="info">
+                        <h3>Puntaje</h3>
+                        <p th:text="${total == -1 ? 'Anulado' : total}"></p>
+                    </div>
+                </div>
+                <div class="approval">
+                    <span th:if="${totalLevel == 'Anulado'}" class="text-danger">ANULADO</span>
+                    <span th:if="${totalLevel == 'Nivel 1' || totalLevel == 'Nivel 0'}"
+                        class="text-warning">REPROBÓ EN LAS UTS</span>
+                    <span th:if="${totalLevel == 'Nivel 2' || totalLevel == 'Nivel 3' || totalLevel == 'Nivel 4'}"
+                        class="text-success">APROBÓ EN LAS UTS</span>
+                </div>
+                <button class="btn-volver" onclick="window.history.back()">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Script para asignar colores de fondo dependiendo del nivel -->
+    <script>
+        var niveles = document.querySelectorAll(".level");
+        niveles.forEach(function (nivel) {
+            var textoNivel = nivel.textContent.trim();
+            var infoDiv = nivel.parentElement.parentElement;
+
+            if (textoNivel === "-1" || textoNivel === "Anulado") {
+                textoNivel = "Anulado";
+                nivel.textContent = textoNivel;
+            }
+
+            switch (textoNivel) {
+                case "Anulado":
+                    infoDiv.querySelector(".info").classList.add("color-anulado");
+                    break;
+                case "Nivel 1":
+                    infoDiv.querySelector(".info").classList.add("nivel-color-1");
+                    break;
+                case "Nivel 2":
+                    infoDiv.querySelector(".info").classList.add("nivel-color-2");
+                    break;
+                case "Nivel 3":
+                    infoDiv.querySelector(".info").classList.add("nivel-color-3");
+                    break;
+                case "Nivel 4":
+                    infoDiv.querySelector(".info").classList.add("nivel-color-4");
+                    break;
+                default:
+                    break;
+            }
+        });
+    </script>
+
+</body>
+
+</html>
+

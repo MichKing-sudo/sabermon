@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado Único</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #6a11cb, #2575fc); /* Fondo de gradiente */
+            animation: gradient-animation 5s ease infinite; /* Animación de gradiente */
+            color: #1d1f21;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center; /* Centrar horizontalmente */
+            justify-content: center; /* Centrar verticalmente */
+            padding: 20px;
+            overflow: hidden; /* Evitar el scroll del cuerpo */
+        }
+
+        @keyframes gradient-animation {
+            0% {
+                background: linear-gradient(45deg, #6a11cb, #2575fc);
+            }
+
+            50% {
+                background: linear-gradient(45deg, #fc466b, #3f5efb);
+            }
+
+            100% {
+                background: linear-gradient(45deg, #6a11cb, #2575fc);
+            }
+        }
+
+        .accordion {
+            width: 100%; /* Ocupa el 100% del ancho del contenedor */
+            max-width: 600px; /* Limitar el ancho máximo */
+            margin: 10px 0; /* Espaciado vertical entre acordeones */
+            border-radius: 10px; /* Bordes redondeados */
+            overflow: hidden; /* Evitar que se vea el contenido fuera del borde redondeado */
+        }
+
+        .top {
+            background-color: rgba(43, 203, 118, 0.9); /* Color con opacidad */
+            color: white;
+            padding: 10px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+        }
+
+        .info {
+            text-align: center;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px 0; /* Espaciado entre información */
+        }
+
+        .nivel-color-1 {
+            background-color: #f87d7d; /* Rojo */
+        }
+
+        .nivel-color-2 {
+            background-color: #99ccff; /* Azul */
+        }
+
+        .nivel-color-3 {
+            background-color: #ffff99; /* Amarillo */
+        }
+
+        .nivel-color-4 {
+            background-color: #99ff99; /* Verde */
+        }
+
+        .btn-volver {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-volver:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="accordion" id="resultadoAccordion">
+
+        <div class="card">
+            <div class="card-header top" id="headingIngles">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseIngles"
+                        aria-expanded="true" aria-controls="collapseIngles">
+                        INGLÉS
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseIngles" class="collapse" aria-labelledby="headingIngles" data-parent="#resultadoAccordion">
+                <div class="card-body">
+                    <div class="info nivel-color-1">
+                        <h3 th:text="${inglesLevel == -1 ? 'Anulado' : inglesLevel}" class="level"></h3>
+                    </div>
+                    <div class="info">
+                        <h3>Puntaje</h3>
+                        <p th:text="${ingles == -1 ? 'Anulado' : ingles}"></p>
+                    </div>
+                    <div class="info">
+                        <h3>Nivel De Inglés</h3>
+                        <p th:text="${levelIngles == -1 ? 'Anulado' : levelIngles}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header top" id="headingComunicacion">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseComunicacion"
+                        aria-expanded="false" aria-controls="collapseComunicacion">
+                        COMUNICACIÓN ESCRITA
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseComunicacion" class="collapse" aria-labelledby="headingComunicacion"
+                data-parent="#resultadoAccordion">
+                <div class="card-body">
+                    <div class="info nivel-color-1">
+                        <h3 th:text="${comunicacionLevel == -1 ? 'Anulado' : comunicacionLevel}" class="level"></h3>
+                    </div>
+                    <div class="info">
+                        <h3>Puntaje</h3>
+                        <p th:text="${comunicacion == -1 ? 'Anulado' : comunicacion}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header top" id="headingRazonamiento">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseRazonamiento"
+                        aria-expanded="false" aria-controls="collapseRazonamiento">
+                        RAZONAMIENTO CUANTITATIVO
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseRazonamiento" class="collapse" aria-labelledby="headingRazonamiento"
+                data-parent="#resultadoAccordion">
+                <div class="card-body">
+                    <div class="info nivel-color-1">
+                        <h3 th:text="${razonamientoLevel == -1 ? 'Anulado' : razonamientoLevel}" class="level"></h3>
+                    </div>
+                    <div class="info">
+                        <h3>Puntaje</h3>
+                        <p th:text="${razonamiento == -1 ? 'Anulado' : razonamiento}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header top" id="headingLectura">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseLectura"
+                        aria-expanded="false" aria-controls="collapseLectura">
+                        LECTURA CRÍTICA
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseLectura" class="collapse" aria-labelledby="headingLectura" data-parent="#resultadoAccordion">
+                <div class="card-body">
+                    <div class="info nivel-color-1">
+                        <h3 th:text="${lecturaLevel == -1 ? 'Anulado' : lecturaLevel}" class="level"></h3>
+                    </div>
+                    <div class="info">
+                        <h3>Puntaje</h3>
+                        <p th:text="${lectura == -1 ? 'Anulado' : lectura}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header top" id="headingCompetencias">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseCompetencias"
+                        aria-expanded="false" aria-controls="collapseCompetencias">
+                        COMPETENCIAS CIUDADANAS
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseCompetencias" class="collapse" aria-labelledby="headingCompetencias"
+                data-parent="#resultadoAccordion">
+                <div class="card-body">
+                    <div class="info nivel-color-1">
+                        <h3 th:text="${competenciasLevel == -1 ? 'Anulado' : competenciasLevel}" class="level"></h3>
+                    </div>
+                    <div class="info">
+                        <h3>Puntaje</h3>
+                        <p th:text="${competencias == -1 ? 'Anulado' : competencias}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header top" id="headingFormulacion">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFormulacion"
+                        aria-expanded="false" aria-controls="collapseFormulacion">
+                        FORMULACIÓN DE PROYECTOS DE INGENIERÍA
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseFormulacion" class="collapse" aria-labelledby="headingFormulacion"
+                data-parent="#resultadoAccordion">
+                <div class="card-body">
+                    <div class="info nivel-color-1">
+                        <h3 th:text="${formulacionLevel == -1 ? 'Anulado' : formulacionLevel}" class="level"></h3>
+                    </div>
+                    <div class="info">
+                        <h3>Puntaje</h3>
+                        <p th:text="${formulacion == -1 ? 'Anulado' : formulacion}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-volver" type="button" th:onClick="|location.href='@{/estudiante/index}'|">VOLVER</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+
